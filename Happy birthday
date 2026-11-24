@@ -1,0 +1,103 @@
+
+import turtle
+import random
+import time
+
+screen = turtle.Screen()
+screen.setup(800, 650)
+screen.bgcolor("#080820")
+screen.title("Happy Birthday Kseniia!")
+screen.tracer(0)
+
+pen = turtle.Turtle()
+pen.hideturtle()
+pen.speed(0)
+
+colors = ["red", "yellow", "cyan", "magenta", "orange", "pink", "white", "purple"]
+
+# Birthday message
+pen.penup()
+pen.goto(0, 230)
+pen.color("#FFD700")
+pen.write("HAPPY BIRTHDAY!", align="center",
+          font=("Arial", 35, "bold"))
+
+pen.goto(0, 185)
+pen.color("white")
+pen.write("KSENIIA!", align="center",
+          font=("Arial", 30, "bold"))
+
+pen.goto(0, 145)
+pen.color("#FFB6C1")
+pen.write("Wishing you endless happiness!", align="center",
+          font=("Arial", 16, "italic"))
+
+# Draw birthday cake
+def draw_rectangle(x, y, width, height, color):
+    pen.penup()
+    pen.goto(x, y)
+    pen.color(color)
+    pen.begin_fill()
+    for _ in range(2):
+        pen.forward(width)
+        pen.left(90)
+        pen.forward(height)
+        pen.left(90)
+    pen.end_fill()
+
+# Cake layers
+draw_rectangle(-110, -180, 220, 65, "#FF69B4")
+draw_rectangle(-90, -115, 180, 55, "#FFD1DC")
+draw_rectangle(-70, -60, 140, 45, "#FFB347")
+
+# Cake decorations
+for x in range(-85, 90, 35):
+    pen.penup()
+    pen.goto(x, -150)
+    pen.dot(10, "white")
+
+# Candles
+for x in [-45, 0, 45]:
+    draw_rectangle(x - 5, -15, 10, 35, random.choice(colors))
+    pen.penup()
+    pen.goto(x, 25)
+    pen.dot(12, "yellow")
+
+# Cake plate
+pen.penup()
+pen.goto(-140, -185)
+pen.color("white")
+pen.pensize(4)
+pen.pendown()
+pen.forward(280)
+pen.penup()
+
+# Fireworks
+def firework(x, y):
+    color = random.choice(colors)
+    for angle in range(0, 360, 30):
+        pen.penup()
+        pen.goto(x, y)
+        pen.setheading(angle)
+        pen.color(color)
+        pen.pensize(3)
+        pen.pendown()
+        pen.forward(random.randint(30, 75))
+        pen.penup()
+        pen.dot(5, color)
+
+# Animation
+for _ in range(30):
+    firework(random.randint(-350, 350),
+             random.randint(-20, 300))
+    screen.update()
+    time.sleep(0.25)
+
+pen.penup()
+pen.goto(0, -270)
+pen.color("#FFD700")
+pen.write("Have the most magical birthday ever! <3",
+          align="center", font=("Arial", 16, "bold"))
+
+screen.update()
+turtle.done()
